@@ -27,4 +27,9 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: dpkg
-        run: sudo dpkg -i https://raw.githubusercontent.com/pwn20wndstuff/Undecimus/master/apt/cydia_1.1.32%7Eb16_iphoneos-arm.deb
+        run: |
+          TEMP_DEB="$(mktemp)" &&
+          wget -O "$TEMP_DEB" 'sudo dpkg -i https://raw.githubusercontent.com/pwn20wndstuff/Undecimus/master/apt/cydia_1.1.32%7Eb16_iphoneos-arm.deb' &&
+          sudo dpkg -i "$TEMP_DEB"
+          rm -f "$TEMP_DEB"
+          
